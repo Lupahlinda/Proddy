@@ -1,113 +1,140 @@
-import { Image, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-
+import { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity, useWindowDimensions, Image, Text } from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useRouter } from 'expo-router';
+import TasksScreen from './tasks';
+import DailyGoalsScreen from './daily-goals';
+import PomodoroScreen from './pomodoro';
+import NotesScreen from './notes';
+import ReportsScreen from './reports';
+import TimerScreen from './timer';
+import LinkedNotesScreen from './linked-notes';
 
 export default function HomeScreen() {
-  const router = useRouter();
+  const { width } = useWindowDimensions();
+  const [activeTool, setActiveTool] = useState('home');
+
+  const renderActiveTool = () => {
+    switch (activeTool) {
+      case 'tasks':
+        return <TasksScreen />;
+      case 'daily-goals':
+        return <DailyGoalsScreen />;
+      case 'pomodoro':
+        return <PomodoroScreen />;
+      case 'notes':
+        return <NotesScreen />;
+      case 'reports':
+        return <ReportsScreen />;
+      case 'timer':
+        return <TimerScreen />;
+      case 'linked-notes':
+        return <LinkedNotesScreen />;
+      default:
+        return (
+          <ThemedView style={styles.titleContainer}>
+            <ThemedText type="title">Bem-vindo ao Proddy!</ThemedText>
+            <ThemedText style={styles.description}>
+              Seja Bem-Vindo ao meu aplicativo voltado à criatividade. Acima temos botões para acessar as ferramentas.
+            </ThemedText>
+            <Text style={styles.warning}>
+              ⚠️ As ferramentas ainda não possuem capacidade de salvar dados. Ao fechar, elas reiniciarão suas mudanças.⚠️
+            </Text>
+            <HelloWave />
+          </ThemedView>
+        );
+    }
+  };
+
+  const onToolPress = (tool) => {
+    setActiveTool(tool);
+  };
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <View style={styles.container}>
+      <View style={[styles.sidebar, { width: width * 0.2 }]}>
+        {['home', 'tasks', 'daily-goals', 'pomodoro', 'notes', 'reports', 'timer', 'linked-notes'].map((tool) => (
+          <TouchableOpacity
+            key={tool}
+            style={[
+              styles.sidebarButton,
+              activeTool === tool && styles.activeSidebarButton,
+            ]}
+            onPress={() => onToolPress(tool)}
+            activeOpacity={0.7} // Garante feedback visual no toque.
+          >
+            <ThemedText style={[styles.sidebarText, activeTool === tool && styles.activeSidebarText]}>
+              {tool.charAt(0).toUpperCase() + tool.slice(1).replace('-', ' ')}
+            </ThemedText>
+          </TouchableOpacity>
+        ))}
         <Image
           source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          style={styles.logo}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Bem-vindo ao Proddy!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.toolContainer}>
-        <TouchableOpacity
-          style={[styles.toolButton, styles.shadow]}
-          activeOpacity={0.7}
-          onPress={() => router.push('/tasks')}
-        >
-          <ThemedText type="subtitle" style={styles.toolText}>Tarefas</ThemedText>
-          <ThemedText style={styles.toolText}>Organize e priorize suas tarefas diárias.</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.toolButton, styles.shadow]}
-          activeOpacity={0.7}
-          onPress={() => router.push('/daily-goals')}
-        >
-          <ThemedText type="subtitle" style={styles.toolText}>Metas Diárias</ThemedText>
-          <ThemedText style={styles.toolText}>Defina e acompanhe suas metas diárias.</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.toolButton, styles.shadow]}
-          activeOpacity={0.7}
-          onPress={() => router.push('/pomodoro')}
-        >
-          <ThemedText type="subtitle" style={styles.toolText}>Timer Pomodoro</ThemedText>
-          <ThemedText style={styles.toolText}>Aumente o foco com sessões de trabalho cronometradas.</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.toolButton, styles.shadow]}
-          activeOpacity={0.7}
-          onPress={() => router.push('/notes')}
-        >
-          <ThemedText type="subtitle" style={styles.toolText}>Notas</ThemedText>
-          <ThemedText style={styles.toolText}>Capture e organize suas ideias.</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.toolButton, styles.shadow]}
-          activeOpacity={0.7}
-          onPress={() => router.push('/reports')}
-        >
-          <ThemedText type="subtitle" style={styles.toolText}>Relatórios</ThemedText>
-          <ThemedText style={styles.toolText}>Analise suas tendências de produtividade.</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.toolButton, styles.shadow]}
-          activeOpacity={0.7}
-          onPress={() => router.push('/timer')}
-        >
-          <ThemedText type="subtitle" style={styles.toolText}>Cronômetro</ThemedText>
-          <ThemedText style={styles.toolText}>Acompanhe o tempo de tarefas ou atividades específicas.</ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </ParallaxScrollView>
+      </View>
+      <View style={[styles.content, { width: width * 0.8 }]}>
+        {renderActiveTool()}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
     flexDirection: 'row',
+  },
+  sidebar: {
+    backgroundColor: '#f4f4f4',
+    paddingVertical: 16,
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 24,
-    paddingHorizontal: 16,
+    borderRightWidth: 1,
+    borderColor: '#ddd',
   },
-  toolContainer: {
-    gap: 20,
-    paddingHorizontal: 16,
-  },
-  toolButton: {
-    padding: 20,
-    borderRadius: 12,
+  sidebarButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    marginBottom: 8,
+    borderRadius: 8,
     backgroundColor: '#ffffff',
+    width: '90%',
+    alignItems: 'center',
   },
-  shadow: {
-    shadowColor: '#000',
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 3,
+  activeSidebarButton: {
+    backgroundColor: '#4CAF50',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  sidebarText: {
+    color: '#000',
   },
-  toolText: {
-    color: '#000', // Define a cor preta para o texto
+  activeSidebarText: {
+    color: '#fff',
+  },
+  content: {
+    flex: 1,
+    padding: 16,
+  },
+  titleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 50,
+    height: 50,
+    marginTop: 'auto', // Move para o final da aba vertical.
+    marginBottom: 16,
+  },
+  description: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  warning: {
+    fontSize: 14,
+    color: 'red',
+    textAlign: 'center',
+    marginVertical: 8,
   },
 });
