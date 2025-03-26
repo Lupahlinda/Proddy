@@ -27,7 +27,6 @@ export default function HomeScreen() {
           style={[styles.toolButton, styles.shadow]}
           activeOpacity={0.7}
           onPress={() => router.push('/tasks')}
-          accessibilityLabel="Abrir ferramenta de Tarefas"
         >
           <ThemedText type="subtitle" style={styles.toolText}>Tarefas</ThemedText>
           <ThemedText style={styles.toolText}>Organize e priorize suas tarefas diárias.</ThemedText>
@@ -36,7 +35,6 @@ export default function HomeScreen() {
           style={[styles.toolButton, styles.shadow]}
           activeOpacity={0.7}
           onPress={() => router.push('/daily-goals')}
-          accessibilityLabel="Abrir ferramenta de Metas Diárias"
         >
           <ThemedText type="subtitle" style={styles.toolText}>Metas Diárias</ThemedText>
           <ThemedText style={styles.toolText}>Defina e acompanhe suas metas diárias.</ThemedText>
@@ -45,7 +43,6 @@ export default function HomeScreen() {
           style={[styles.toolButton, styles.shadow]}
           activeOpacity={0.7}
           onPress={() => router.push('/pomodoro')}
-          accessibilityLabel="Abrir ferramenta de Timer Pomodoro"
         >
           <ThemedText type="subtitle" style={styles.toolText}>Timer Pomodoro</ThemedText>
           <ThemedText style={styles.toolText}>Aumente o foco com sessões de trabalho cronometradas.</ThemedText>
@@ -54,7 +51,6 @@ export default function HomeScreen() {
           style={[styles.toolButton, styles.shadow]}
           activeOpacity={0.7}
           onPress={() => router.push('/notes')}
-          accessibilityLabel="Abrir ferramenta de Notas"
         >
           <ThemedText type="subtitle" style={styles.toolText}>Notas</ThemedText>
           <ThemedText style={styles.toolText}>Capture e organize suas ideias.</ThemedText>
@@ -63,7 +59,6 @@ export default function HomeScreen() {
           style={[styles.toolButton, styles.shadow]}
           activeOpacity={0.7}
           onPress={() => router.push('/reports')}
-          accessibilityLabel="Abrir ferramenta de Relatórios"
         >
           <ThemedText type="subtitle" style={styles.toolText}>Relatórios</ThemedText>
           <ThemedText style={styles.toolText}>Analise suas tendências de produtividade.</ThemedText>
@@ -72,7 +67,6 @@ export default function HomeScreen() {
           style={[styles.toolButton, styles.shadow]}
           activeOpacity={0.7}
           onPress={() => router.push('/timer')}
-          accessibilityLabel="Abrir ferramenta de Cronômetro"
         >
           <ThemedText type="subtitle" style={styles.toolText}>Cronômetro</ThemedText>
           <ThemedText style={styles.toolText}>Acompanhe o tempo de tarefas ou atividades específicas.</ThemedText>
