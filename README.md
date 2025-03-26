@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# Proddy - Maximize sua Produtividade 🚀
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Proddy é a ferramenta definitiva para quem busca organização e eficiência no dia a dia. Com uma interface intuitiva e funcionalidades poderosas, ele ajuda você a gerenciar tarefas, acompanhar o progresso e otimizar seu tempo.
 
-## Get started
+## ✨ Recursos
 
-1. Install dependencies
+- 📌 Gerenciamento de tarefas e projetos
+- ⏳ Acompanhamento de progresso e metas
+- 🔔 Notificações e lembretes
+- 📊 Relatórios detalhados de produtividade
+- ☁️ Sincronização na nuvem
 
-   ```bash
-   npm install
-   ```
+## 🚀 Instalação
 
-2. Start the app
+### Pré-requisitos
+- [Node.js](https://nodejs.org/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
-   ```bash
-    npx expo start
-   ```
+### Instalação e Execução
+sh
+# Clone o repositório
+git clone https://github.com/Lupahlinda/Proddy
+cd proddy
 
-In the output, you'll find options to open the app in a
+# Instale as dependências
+yarn install  # ou npm install
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+# Execute o aplicativo
+expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🛠️ Como Usar
+1. Abra o Proddy no seu dispositivo ou emulador.
+2. Adicione suas tarefas e defina prazos.
+3. Acompanhe seu progresso e maximize sua produtividade!
 
-## Learn more
+## 🤝 Contribuindo
+Contribuições são bem-vindas! Siga os passos:
 
-To learn more about developing your project with Expo, look at the following resources:
+1. Faça um fork do repositório
+2. Crie um branch para suas alterações (`git checkout -b minha-feature`)
+3. Faça o commit (`git commit -m 'Adicionando nova funcionalidade'`)
+4. Envie o código (`git push origin minha-feature`)
+5. Abra um Pull Request
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📜 Licença
+Este projeto é licenciado sob a **MIT License**. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+🚀 **Maximize sua produtividade com o Proddy!**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
