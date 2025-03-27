@@ -1,19 +1,40 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { StyleSheet, View, TouchableOpacity, useWindowDimensions, Image, Text } from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import TasksScreen from './tasks';
-import DailyGoalsScreen from './daily-goals';
-import PomodoroScreen from './pomodoro';
-import NotesScreen from './notes';
-import ReportsScreen from './reports';
-import TimerScreen from './timer';
-import LinkedNotesScreen from './linked-notes';
+import TasksScreen from '@/app/tasks';
+import DailyGoalsScreen from '@/app/daily-goals';
+import PomodoroScreen from '@/app/pomodoro';
+import NotesScreen from '@/app/notes';
+import ReportsScreen from '@/app/reports';
+import TimerScreen from '@/app/timer';
+import LinkedNotesScreen from '@/app/linked-notes';
+
+const SidebarButton = ({ tool, isActive, onPress }: { tool: string; isActive: boolean; onPress: () => void }) => (
+  <TouchableOpacity
+    style={[
+      styles.sidebarButton,
+      isActive && styles.activeSidebarButton,
+    ]}
+    onPress={onPress}
+    activeOpacity={0.7}
+    accessibilityLabel={`Abrir ${tool.charAt(0).toUpperCase() + tool.slice(1).replace('-', ' ')}`}
+    accessibilityRole="button"
+  >
+    <ThemedText style={[styles.sidebarText, isActive && styles.activeSidebarText]}>
+      {tool.charAt(0).toUpperCase() + tool.slice(1).replace('-', ' ')}
+    </ThemedText>
+  </TouchableOpacity>
+);
 
 export default function HomeScreen() {
   const { width } = useWindowDimensions();
   const [activeTool, setActiveTool] = useState('home');
+
+  const onToolPress = useCallback((tool: string) => {
+    setActiveTool(tool);
+  }, []);
 
   const renderActiveTool = () => {
     switch (activeTool) {
@@ -47,31 +68,21 @@ export default function HomeScreen() {
     }
   };
 
-  const onToolPress = (tool) => {
-    setActiveTool(tool);
-  };
-
   return (
     <View style={styles.container}>
       <View style={[styles.sidebar, { width: width * 0.2 }]}>
         {['home', 'tasks', 'daily-goals', 'pomodoro', 'notes', 'reports', 'timer', 'linked-notes'].map((tool) => (
-          <TouchableOpacity
+          <SidebarButton
             key={tool}
-            style={[
-              styles.sidebarButton,
-              activeTool === tool && styles.activeSidebarButton,
-            ]}
+            tool={tool}
+            isActive={activeTool === tool}
             onPress={() => onToolPress(tool)}
-            activeOpacity={0.7} // Garante feedback visual no toque.
-          >
-            <ThemedText style={[styles.sidebarText, activeTool === tool && styles.activeSidebarText]}>
-              {tool.charAt(0).toUpperCase() + tool.slice(1).replace('-', ' ')}
-            </ThemedText>
-          </TouchableOpacity>
+          />
         ))}
         <Image
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.logo}
+          accessibilityLabel="Logo do aplicativo"
         />
       </View>
       <View style={[styles.content, { width: width * 0.8 }]}>
