@@ -16,6 +16,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    margin: 16,
+    boxShadow: '0px 1px 8px rgba(0, 0, 0, 0.05)',
   },
   report: {
     marginVertical: 8,

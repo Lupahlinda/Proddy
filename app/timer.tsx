@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    margin: 16,
+    boxShadow: '0px 1px 8px rgba(0, 0, 0, 0.05)',
   },
   timer: {
     fontSize: 48,

@@ -99,10 +99,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: 16,
+    margin: 16,
+    boxShadow: '0px 1px 8px rgba(0, 0, 0, 0.05)',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#edf2f7',
     padding: 8,
     marginBottom: 8,
     borderRadius: 4,
