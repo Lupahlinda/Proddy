@@ -16,6 +16,8 @@ Proddy é a ferramenta definitiva para quem busca organização e eficiência no
 
 Apenas baixe o .APK na aba 'releases'
 
+se caso for usar o código-fonte, siga as instruções abaixo:
+
 ### Pré-requisitos
 - [Node.js](https://nodejs.org/)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
