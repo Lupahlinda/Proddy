@@ -12,11 +12,19 @@ Proddy é a ferramenta definitiva para quem busca organização e eficiência no
 
 ## 🚀 Instalação
 
+### Pré-requisitos para o APK
+
+Apenas baixe o .APK na aba 'releases'
+
 ### Pré-requisitos
 - [Node.js](https://nodejs.org/)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
 ### Instalação e Execução
+
+se caso for usar o .APK, execute em um sistema Android, instale e abra normalmente 
+
+caso for necessário o uso do expo, instruções abaixo de como usar:
 
 git clone https://github.com/Lupahlinda/Proddy
 
