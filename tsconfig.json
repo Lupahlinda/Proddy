@@ -6,7 +6,8 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "types": ["jest", "prop-types"]
   },
   "include": [
     "**/*.ts",

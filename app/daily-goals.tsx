@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, FlatList, Text, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput, FlatList, Text, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { useStorage } from '@/hooks/useStorage';
 
 export default function DailyGoalsScreen() {
-  const [goals, setGoals] = useState([]);
+  const [goals, setGoals] = useStorage<any[]>({
+    key: 'dailyGoals',
+    initialValue: []
+  });
   const [goal, setGoal] = useState('');
 
   const addGoal = () => {
@@ -23,7 +28,7 @@ export default function DailyGoalsScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <ThemedText type="title">Metas Diárias</ThemedText>
       <TextInput
         style={styles.input}
@@ -31,24 +36,40 @@ export default function DailyGoalsScreen() {
         value={goal}
         onChangeText={setGoal}
       />
-      <Button title="Adicionar Meta" onPress={addGoal} />
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={addGoal}
+      >
+        <ThemedText style={styles.addButtonText}>Adicionar Meta</ThemedText>
+      </TouchableOpacity>
       <FlatList
         data={goals}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => toggleGoal(index)}>
-            <Text style={[styles.goal, item.completed && styles.completedGoal]}>{item.text}</Text>
+            <ThemedText style={[styles.goal, item.completed && styles.completedGoal]}>{item.text}</ThemedText>
           </TouchableOpacity>
         )}
       />
-    </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  addButton: {
+    backgroundColor: '#4CAF50',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 12,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
     backgroundColor: '#ffffff',
     borderRadius: 16,
     margin: 16,
@@ -56,18 +77,19 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#edf2f7',
-    padding: 8,
-    marginBottom: 8,
-    borderRadius: 4,
+    borderColor: '#ddd',
+    padding: 12,
+    marginVertical: 12,
+    borderRadius: 8,
   },
   goal: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    padding: 12,
+    marginVertical: 8,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
   },
   completedGoal: {
     textDecorationLine: 'line-through',
-    color: 'gray',
+    color: '#6c757d',
   },
 });

@@ -104,11 +104,10 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container} accessibilityRole="application">
+    <View style={styles.container} accessibilityRole="application" accessibilityLabel="Aplicativo de Produtividade">
       <View 
         style={[styles.navigation, { width: width * 0.2 }]}
         accessibilityRole="tablist"
-        accessibilityLabel="Menu de navegação"
       >
         {NAVIGATION_TOOLS.map(({ id }) => (
           <NavigationButton
@@ -160,18 +159,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginBottom: 12,
     borderRadius: 12,
-    shadowColor: '#718096',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
     width: '85%',
     alignItems: 'center',
-    boxShadow: '0px 2px 3px rgba(113, 128, 150, 0.05)',
     borderWidth: 1,
-    shadowColor: '#6366f1',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
+    borderColor: '#edf2f7',
+    backgroundColor: '#ffffff',
     transform: [{ scale: 1 }],
   },
   activeNavigationButton: {

@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput, FlatList, Text, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { useStorage } from '@/hooks/useStorage';
 
 export default function NotesScreen() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useStorage<string[]>({
+    key: 'notes',
+    initialValue: []
+  });
   const [note, setNote] = useState('');
 
   const addNote = () => {
@@ -14,60 +19,104 @@ export default function NotesScreen() {
     }
   };
 
-  const deleteNote = (index) => {
+  const deleteNote = (index: number) => {
     setNotes(notes.filter((_, i) => i !== index));
     alert('Nota excluída com sucesso!');
   };
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <ThemedText type="title">Notas</ThemedText>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.text]}
         placeholder="Digite uma nova nota"
         value={note}
         onChangeText={setNote}
       />
-      <Button title="Adicionar Nota" onPress={addNote} />
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={addNote}
+      >
+        <ThemedText style={styles.addButtonText}>Adicionar Nota</ThemedText>
+      </TouchableOpacity>
       <FlatList
         data={notes}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           <View style={styles.noteContainer}>
-            <Text style={styles.note}>{item}</Text>
-            <Button title="Excluir" onPress={() => deleteNote(index)} />
+            <ThemedText style={[styles.note, styles.text]}>{item}</ThemedText>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => deleteNote(index)}
+            >
+              <ThemedText style={styles.deleteButtonText}>Excluir</ThemedText>
+            </TouchableOpacity>
           </View>
         )}
       />
-    </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
     backgroundColor: '#ffffff',
     borderRadius: 16,
     margin: 16,
-    boxShadow: '0px 1px 8px rgba(0, 0, 0, 0.05)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  text: {
+    color: '#333',
+    fontSize: 16,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#edf2f7',
-    padding: 8,
-    marginBottom: 8,
-    borderRadius: 4,
+    borderColor: '#ddd',
+    padding: 12,
+    marginVertical: 12,
+    borderRadius: 8,
+    backgroundColor: '#fff',
   },
   noteContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    padding: 12,
+    marginVertical: 8,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
   },
   note: {
     flex: 1,
+    marginRight: 12,
+  },
+  addButton: {
+    backgroundColor: '#4CAF50',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 12,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    padding: 8,
+    borderRadius: 6,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontWeight: '600',
   },
 });

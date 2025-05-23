@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { StyleSheet, View, TextInput, Button, FlatList, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TextInput, FlatList, Text, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { useStorage } from '@/hooks/useStorage';
 
 export default function TasksScreen() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useStorage<string[]>({
+    key: 'tasks',
+    initialValue: []
+  });
   const [task, setTask] = useState('');
 
   const addTask = () => {
@@ -14,60 +19,111 @@ export default function TasksScreen() {
     }
   };
 
-  const deleteTask = (index) => {
+  const deleteTask = (index: number) => {
     setTasks(tasks.filter((_, i) => i !== index));
     alert('Tarefa excluída com sucesso!');
   };
 
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <ThemedText type="title">Tarefas</ThemedText>
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.text]}
         placeholder="Digite uma nova tarefa"
         value={task}
         onChangeText={setTask}
         accessibilityLabel="Campo de entrada para nova tarefa"
       />
-      <Button title="Adicionar Tarefa" onPress={addTask} accessibilityLabel="Adicionar nova tarefa" />
+      <TouchableOpacity
+        style={[styles.addButton, styles.button]}
+        onPress={addTask}
+        accessibilityLabel="Adicionar nova tarefa"
+      >
+        <ThemedText style={styles.addButtonText}>Adicionar Tarefa</ThemedText>
+      </TouchableOpacity>
       <FlatList
         data={tasks}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
-          <View style={styles.taskContainer}>
-            <Text style={styles.task}>{item}</Text>
-            <Button title="Excluir" onPress={() => deleteTask(index)} accessibilityLabel={`Excluir tarefa ${item}`} />
+          <View style={[styles.taskContainer, styles.button]}>
+            <ThemedText style={[styles.task, styles.text]}>{item}</ThemedText>
+            <TouchableOpacity
+              style={[styles.deleteButton, styles.button]}
+              onPress={() => deleteTask(index)}
+              accessibilityLabel={`Excluir tarefa ${item}`}
+            >
+              <ThemedText style={styles.deleteButtonText}>Excluir</ThemedText>
+            </TouchableOpacity>
           </View>
         )}
       />
-    </View>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 20,
     backgroundColor: '#ffffff',
     borderRadius: 16,
     margin: 16,
-    boxShadow: '0px 1px 8px rgba(0, 0, 0, 0.05)',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  text: {
+    color: '#333',
+    fontSize: 16,
+  },
+  button: {
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#edf2f7',
-    padding: 8,
-    marginBottom: 8,
-    borderRadius: 4,
-  },
-  task: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderColor: '#ddd',
+    padding: 12,
+    marginVertical: 12,
+    borderRadius: 8,
   },
   taskContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 12,
+    marginVertical: 8,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+  },
+  task: {
+    flex: 1,
+    marginRight: 12,
+  },
+  addButton: {
+    backgroundColor: '#4CAF50',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 12,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    padding: 8,
+    borderRadius: 6,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontWeight: '600',
   },
 });
