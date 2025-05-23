@@ -10,9 +10,13 @@ import NotesScreen from '@/app/notes';
 import ReportsScreen from '@/app/reports';
 import TimerScreen from '@/app/timer';
 import LinkedNotesScreen from '@/app/linked-notes';
+import BrainstormingScreen from '@/app/brainstorming';
+import WeeklyPlannerScreen from '@/app/weekly-planner';
+import ProgressChartScreen from '@/app/progress-chart';
+import ProjectsScreen from '@/app/projects';
 
 // Types
-type NavigationTool = 'home' | 'tasks' | 'daily-goals' | 'pomodoro' | 'notes' | 'reports' | 'timer' | 'linked-notes';
+type NavigationTool = 'home' | 'tasks' | 'daily-goals' | 'pomodoro' | 'notes' | 'reports' | 'timer' | 'linked-notes' | 'brainstorming' | 'weekly-planner' | 'progress-chart' | 'projects';
 
 interface NavigationButtonProps {
   tool: NavigationTool;
@@ -33,7 +37,11 @@ const NAVIGATION_TOOLS: Array<{
   { id: 'notes', label: 'Notas', description: 'Suas anotações' },
   { id: 'reports', label: 'Relatórios', description: 'Visualizar relatórios' },
   { id: 'timer', label: 'Timer', description: 'Cronômetro simples' },
-  { id: 'linked-notes', label: 'Notas Vinculadas', description: 'Notas com conexões' }
+  { id: 'linked-notes', label: 'Notas Vinculadas', description: 'Notas com conexões' },
+  { id: 'brainstorming', label: 'Brainstorming', description: 'Gerador de ideias e brainstorming' },
+  { id: 'weekly-planner', label: 'Planner Semanal', description: 'Planejamento semanal detalhado' },
+  { id: 'progress-chart', label: 'Gráfico de Progresso', description: 'Visualização de progresso' },
+  { id: 'projects', label: 'Projetos', description: 'Gerenciamento de projetos complexos' }
 ];
 
 const NavigationButton = ({ tool, isActive, onPress }: NavigationButtonProps) => {
@@ -88,7 +96,11 @@ export default function HomeScreen() {
     'notes': <NotesScreen />,
     'reports': <ReportsScreen />,
     'timer': <TimerScreen />,
-    'linked-notes': <LinkedNotesScreen />
+    'linked-notes': <LinkedNotesScreen />,
+    'brainstorming': <BrainstormingScreen />,
+    'weekly-planner': <WeeklyPlannerScreen />,
+    'progress-chart': <ProgressChartScreen />,
+    'projects': <ProjectsScreen />
   };
 
   return (
