@@ -1,16 +1,16 @@
-# Proddy - Maximize sua Produtividade 🚀
+# Proddy - Maximize sua Produtividade 
 
 Proddy é a ferramenta definitiva para quem busca organização e eficiência no dia a dia. Com uma interface intuitiva e funcionalidades poderosas, ele ajuda você a gerenciar tarefas, acompanhar o progresso e otimizar seu tempo.
 
-## ✨ Recursos
+## Recursos
 
-- 📌 Gerenciamento de tarefas e projetos
-- ⏳ Acompanhamento de progresso e metas
-- 🔔 Notificações e lembretes
-- 📊 Relatórios detalhados de produtividade
-- ☁️ Sincronização na nuvem
+-  Gerenciamento de tarefas e projetos
+-  Acompanhamento de progresso e metas
+-  Notificações e lembretes
+-  Relatórios detalhados de produtividade
+-  Sincronização na nuvem
 
-## 🚀 Instalação
+## Instalação
 
 ### Pré-requisitos para o APK
 
@@ -38,7 +38,7 @@ yarn install expo  # ou npm install expo
 # Execute o aplicativo
 expo start
 
-## 🛠️ Como Usar
+##  Como Usar
 1. Abra o Proddy no seu dispositivo ou emulador.
 2. Adicione suas tarefas e defina prazos.
 3. Acompanhe seu progresso e maximize sua produtividade!
